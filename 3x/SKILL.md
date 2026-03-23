@@ -51,7 +51,7 @@ Bash tool:
 **任务 2 — Codex（后台 Bash）**
 
 通过 `codex exec` CLI 运行。使用 `read-only` 沙盒确保安全。
-默认具备联网能力。非代码任务需加 `--skip-git-repo-check`。
+默认具备联网能力。Codex 要求 git repo：代码任务用 `-C "{git repo 根目录}"`，非代码任务加 `--skip-git-repo-check` 跳过。
 
 ```
 Bash tool:
@@ -59,7 +59,7 @@ Bash tool:
   run_in_background: true
   timeout: 600000
   command: |
-    echo "{task}" | codex exec {非代码: --skip-git-repo-check} {代码: -C "{cwd}"} -s read-only -o /tmp/codex-3x.md > /dev/null 2>&1 && cat /tmp/codex-3x.md
+    echo "{task}" | codex exec {非代码: --skip-git-repo-check} {代码: -C "{cwd}"} -s read-only
 ```
 
 **任务 3 — Gemini（后台 Bash）**
