@@ -64,8 +64,9 @@ Bash tool:
 
 **任务 3 — Gemini（后台 Bash）**
 
-通过 `gemini` CLI 运行。使用 `--approval-mode yolo -s` 确保自动审批 + 沙盒。
+通过 `gemini` CLI 运行。使用 `--approval-mode yolo -s` 自动审批 + 沙盒。
 Gemini 默认具备联网能力，无需额外参数。
+**重要**：Gemini 没有原生的"只读但允许 shell"模式，因此在 prompt 前注入只读约束指令，防止擅自修改文件。
 
 ```
 Bash tool:
@@ -73,7 +74,7 @@ Bash tool:
   run_in_background: true
   timeout: 600000
   command: |
-    {代码: cd "{cwd}" && }echo "{task}" | gemini --approval-mode yolo -s -p ""
+    {代码: cd "{cwd}" && }printf '%s\n\n%s' '[STRICT RULE] You are in READ-ONLY analysis mode. You MUST NOT create, modify, or delete any files. Only use read operations (read_file, grep_search, list_dir, shell commands like git log/diff/show/blame, find, cat, ls, etc). If you feel the urge to write a file, output the suggestion as text instead.' '{task}' | gemini --approval-mode yolo -s -p ""
 ```
 
 ### Step 3: 汇总三方结果
