@@ -59,7 +59,7 @@ Bash tool:
   run_in_background: true
   timeout: 600000
   command: |
-    echo "{task}" | codex exec {非代码: --skip-git-repo-check} {代码: -C "{cwd}"} -s read-only
+    echo "{task}" | codex exec {非代码: --skip-git-repo-check} {代码: -C "{cwd}"} -s read-only --ephemeral
 ```
 
 **任务 3 — Gemini（后台 Bash）**
